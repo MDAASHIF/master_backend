@@ -1,7 +1,19 @@
-import vine from "@vinejs/vine";
+import Joi from 'joi'
 
-export const registerSchema = vine.object({
-    name : vine.string().minLength(2).maxLength(150),
-    email : vine.string().email(),
-    password : vine.string().minLength(6).maxLength(100).confirmed()
+export const registerSchema = Joi.object({
+    name : Joi.string().required(),
+    email : Joi.string().email().required(),
+    password : Joi.string().min(6).max(100).required(),
+    confirmPassword: Joi.any()
+        .valid(Joi.ref('password'))
+        .required()
+        .strict()
+        .messages({
+            'any.only': 'Passwords do not match'
+        })
+})
+
+export const loginSchema = Joi.object({
+    email : Joi.string().email().required(),
+    password : Joi.string().min(6).max(100).required(),
 })
