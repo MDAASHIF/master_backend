@@ -16,6 +16,13 @@ const UserSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    avatar: {
+        type: String, // cloudinary url
+        required: true,
+    },
+    coverImage: {
+        type: String, // cloudinary url
+    },
     password : {
         type : String,
         required : true
